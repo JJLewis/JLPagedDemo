@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'JLPagedDemo_Example' do
+  pod 'JLPagedDemo', :path => '../'
+
+  target 'JLPagedDemo_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
