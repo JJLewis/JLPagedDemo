@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet var demo:JLPagedDemoCollectionView!
     
     @IBAction func startautoloop(_ sender: UIButton) {
-        demo.autoloopAtInterval(1)
+        demo.autoloopAtInterval(5)
     }
     
     override func viewDidLoad() {

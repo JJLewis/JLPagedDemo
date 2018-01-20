@@ -36,13 +36,12 @@ open class JLPagedDemoCollectionView: UICollectionView {
         }
     }
     
-    var autoloopTimer: Timer = Timer()
+    internal var autoloopTimer: Timer = Timer()
     
     public func autoloopAtInterval(_ interval: TimeInterval) {
         autoloopTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { (timer) in
             self.nextPage()
         })
-        autoloopTimer.fire()
     }
     
     internal func processNewData() {
