@@ -26,6 +26,14 @@ open class JLPagedDemoCollectionView: UICollectionView {
     private var _currentPage:Int = 0
     public var currentPage:Int {
         get {
+            if let visibleTag = visibleCells.first?.tag {
+                if _currentPage != visibleTag {
+                    _currentPage = visibleTag
+                    if let pc = pageControl {
+                        pc.currentPage = _currentPage
+                    }
+                }
+            }
             return _currentPage
         }
         set {
@@ -38,39 +46,11 @@ open class JLPagedDemoCollectionView: UICollectionView {
     
     internal var autoloopTimer: Timer = Timer()
     
-    public func autoloopAtInterval(_ interval: TimeInterval) {
-        autoloopTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { (timer) in
-            self.nextPage()
-        })
-    }
-    
     internal func processNewData() {
         if let pc = pageControl {
             pc.numberOfPages = pages.count
         }
         reloadData()
-    }
-    
-    public func changePage(to:Int) {
-        if to < pages.count {
-            scrollToItem(at: IndexPath(row: to, section: 0), at: .left, animated: true)
-        }
-    }
-    
-    @objc public func nextPage() {
-        if currentPage + 1 == pages.count {
-            changePage(to: 0)
-        } else {
-            changePage(to: currentPage + 1)
-        }
-    }
-    
-    @objc public func previousPage() {
-        if currentPage == 0 {
-            changePage(to: pages.count - 1)
-        } else {
-            changePage(to: currentPage - 1)
-        }
     }
     
     @objc func pageControlTapped(_ sender: UIPageControl) {
@@ -122,6 +102,37 @@ open class JLPagedDemoCollectionView: UICollectionView {
     }
 }
 
+// MARK: Changing Pages
+extension JLPagedDemoCollectionView {
+    public func changePage(to:Int) {
+        if to < pages.count {
+            scrollToItem(at: IndexPath(row: to, section: 0), at: .centeredHorizontally, animated: true)
+        }
+    }
+    
+    @objc public func nextPage() {
+        if currentPage + 1 == pages.count {
+            changePage(to: 0)
+        } else {
+            changePage(to: currentPage + 1)
+        }
+    }
+    
+    @objc public func previousPage() {
+        if currentPage == 0 {
+            changePage(to: pages.count - 1)
+        } else {
+            changePage(to: currentPage - 1)
+        }
+    }
+    
+    public func autoloopAtInterval(_ interval: TimeInterval) {
+        autoloopTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { (timer) in
+            self.nextPage()
+        })
+    }
+}
+
 extension JLPagedDemoCollectionView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         currentPage = indexPath.row
@@ -153,6 +164,7 @@ extension JLPagedDemoCollectionView: UICollectionViewDataSource {
         let contentView = pages[indexPath.row].page
         cell.addSubview(contentView)
         cell.fitToSuperView(view: contentView)
+        cell.tag = indexPath.row
         
         return cell
     }
