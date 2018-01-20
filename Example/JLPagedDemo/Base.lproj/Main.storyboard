@@ -34,17 +34,31 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                                 <connections>
+                                    <outlet property="nextButton" destination="FvT-Aq-CO9" id="eCY-h4-NXm"/>
                                     <outlet property="pageControl" destination="Y2d-8o-qLZ" id="UiP-ke-ut4"/>
+                                    <outlet property="prevButton" destination="ReN-Tq-UNc" id="gfO-58-VJ6"/>
                                 </connections>
                             </collectionView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Y2d-8o-qLZ">
                                 <rect key="frame" x="168" y="373.5" width="39" height="37"/>
                             </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ReN-Tq-UNc">
+                                <rect key="frame" x="16" y="377" width="59" height="30"/>
+                                <state key="normal" title="Previous"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FvT-Aq-CO9">
+                                <rect key="frame" x="327" y="377" width="32" height="30"/>
+                                <state key="normal" title="Next"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="FvT-Aq-CO9" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="54D-Uw-Zif"/>
                             <constraint firstItem="V17-xN-zQh" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="JAV-NA-YyV"/>
+                            <constraint firstItem="ReN-Tq-UNc" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="PkB-zi-Nia"/>
                             <constraint firstItem="Y2d-8o-qLZ" firstAttribute="top" secondItem="V17-xN-zQh" secondAttribute="bottom" id="ULn-8G-mBe"/>
+                            <constraint firstItem="ReN-Tq-UNc" firstAttribute="top" secondItem="V17-xN-zQh" secondAttribute="bottom" constant="3.5" id="bBb-sS-VdS"/>
+                            <constraint firstItem="FvT-Aq-CO9" firstAttribute="top" secondItem="V17-xN-zQh" secondAttribute="bottom" constant="3.5" id="dAP-5o-l9y"/>
                             <constraint firstItem="V17-xN-zQh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="euy-MP-lpI"/>
                             <constraint firstItem="V17-xN-zQh" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.5" id="kNf-ih-iaq"/>
                             <constraint firstItem="Y2d-8o-qLZ" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="qLy-HC-bAa"/>

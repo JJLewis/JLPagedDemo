@@ -9,6 +9,8 @@ import UIKit
 
 open class JLPagedDemoCollectionView: UICollectionView {
     
+    @IBOutlet public var nextButton: UIButton?
+    @IBOutlet public var prevButton: UIButton?
     @IBOutlet public var pageControl: UIPageControl?
     
     private var _pages:JLPagedDemo = []
@@ -21,6 +23,19 @@ open class JLPagedDemoCollectionView: UICollectionView {
             processNewData()
         }
     }
+    private var _currentPage:Int = 0
+    public var currentPage:Int {
+        get {
+            return _currentPage
+        }
+        set {
+            _currentPage = newValue
+            if let pc = pageControl {
+                pc.currentPage = _currentPage
+            }
+        }
+    }
+    
     
     internal func processNewData() {
         if let pc = pageControl {
@@ -30,7 +45,25 @@ open class JLPagedDemoCollectionView: UICollectionView {
     }
     
     public func changePage(to:Int) {
-        scrollToItem(at: IndexPath(row: to, section: 0), at: .left, animated: true)
+        if to < pages.count {
+            scrollToItem(at: IndexPath(row: to, section: 0), at: .left, animated: true)
+        }
+    }
+    
+    @objc public func nextPage() {
+        if currentPage + 1 == pages.count {
+            changePage(to: 0)
+        } else {
+            changePage(to: currentPage + 1)
+        }
+    }
+    
+    @objc public func previousPage() {
+        if currentPage == 0 {
+            changePage(to: pages.count - 1)
+        } else {
+            changePage(to: currentPage - 1)
+        }
     }
     
     @objc func pageControlTapped(_ sender: UIPageControl) {
@@ -42,6 +75,14 @@ open class JLPagedDemoCollectionView: UICollectionView {
         
         if let pc = pageControl {
             pc.addTarget(self, action: #selector(JLPagedDemoCollectionView.pageControlTapped(_:)), for: .touchUpInside)
+        }
+        
+        if let nb = nextButton {
+            nb.addTarget(self, action: #selector(JLPagedDemoCollectionView.nextPage), for: .touchUpInside)
+        }
+        
+        if let pb = prevButton {
+            pb.addTarget(self, action: #selector(JLPagedDemoCollectionView.previousPage), for: .touchUpInside)
         }
     }
     
@@ -76,9 +117,7 @@ open class JLPagedDemoCollectionView: UICollectionView {
 
 extension JLPagedDemoCollectionView: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let pc = pageControl {
-            pc.currentPage = indexPath.row
-        }
+        currentPage = indexPath.row
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
