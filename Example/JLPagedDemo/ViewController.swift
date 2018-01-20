@@ -13,6 +13,10 @@ class ViewController: UIViewController {
     
     @IBOutlet var demo:JLPagedDemoCollectionView!
     
+    @IBAction func startautoloop(_ sender: UIButton) {
+        demo.autoloopAtInterval(1)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

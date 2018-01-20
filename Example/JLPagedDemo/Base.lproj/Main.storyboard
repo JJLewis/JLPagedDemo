@@ -46,6 +46,14 @@
                                 <rect key="frame" x="16" y="377" width="59" height="30"/>
                                 <state key="normal" title="Previous"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pha-Cc-ZGQ">
+                                <rect key="frame" x="137" y="418" width="100" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start Autoloop"/>
+                                <connections>
+                                    <action selector="startautoloop:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="IYM-fW-mI8"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FvT-Aq-CO9">
                                 <rect key="frame" x="327" y="377" width="32" height="30"/>
                                 <state key="normal" title="Next"/>
