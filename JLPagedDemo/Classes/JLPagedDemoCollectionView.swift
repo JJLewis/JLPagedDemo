@@ -111,6 +111,7 @@ extension JLPagedDemoCollectionView {
     }
     
     @objc public func nextPage() {
+        print("a")
         if currentPage + 1 == pages.count {
             changePage(to: 0)
         } else {
@@ -130,6 +131,10 @@ extension JLPagedDemoCollectionView {
         autoloopTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true, block: { (timer) in
             self.nextPage()
         })
+    }
+    
+    public func stopAutoloop() {
+        autoloopTimer.invalidate()
     }
 }
 
