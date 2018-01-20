@@ -9,6 +9,8 @@ import UIKit
 
 open class JLPagedDemoCollectionView: UICollectionView {
     
+    @IBOutlet public var pageControl: UIPageControl?
+    
     private var _pages:JLPagedDemo = []
     public var pages:JLPagedDemo {
         get {
@@ -16,7 +18,30 @@ open class JLPagedDemoCollectionView: UICollectionView {
         }
         set {
             _pages = newValue
-            reloadData()
+            processNewData()
+        }
+    }
+    
+    internal func processNewData() {
+        if let pc = pageControl {
+            pc.numberOfPages = pages.count
+        }
+        reloadData()
+    }
+    
+    public func changePage(to:Int) {
+        scrollToItem(at: IndexPath(row: to, section: 0), at: .left, animated: true)
+    }
+    
+    @objc func pageControlTapped(_ sender: UIPageControl) {
+        changePage(to: sender.currentPage)
+    }
+    
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        if let pc = pageControl {
+            pc.addTarget(self, action: #selector(JLPagedDemoCollectionView.pageControlTapped(_:)), for: .touchUpInside)
         }
     }
     
@@ -28,6 +53,8 @@ open class JLPagedDemoCollectionView: UICollectionView {
         
         isPagingEnabled = true
         bounces = false
+        showsHorizontalScrollIndicator = false
+        showsVerticalScrollIndicator = false
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -48,6 +75,12 @@ open class JLPagedDemoCollectionView: UICollectionView {
 }
 
 extension JLPagedDemoCollectionView: UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let pc = pageControl {
+            pc.currentPage = indexPath.row
+        }
+    }
+    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
