@@ -45,6 +45,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="imageview" destination="v0H-Fn-XeP" id="CMc-ay-SyT"/>
+                <outlet property="stackview" destination="AMF-vN-75a" id="a0f-YI-lmq"/>
                 <outlet property="titleLabel" destination="l8f-6b-gnX" id="0xr-ki-sHX"/>
             </connections>
         </view>
